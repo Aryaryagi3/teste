@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +15,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', function () {
+    return Inertia::render('Home', [
+        'auth' => Auth::check(),
+    ]);
+});
+
+Route::resource('packages', PackagesController::class)->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
-    'verified'
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return Inertia::render('Dashboard');
     })->name('dashboard');
 });

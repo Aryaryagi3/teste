@@ -1,11 +1,16 @@
 <template>
-    <div>
-        amogus
-    </div>
+    <layout>
+        <div>
+            amogus
+        </div>
+    </layout>
 </template>
 
 <script>
-    export default {}
+    import Layout from "../Layout.vue";
+    export default {
+        components: { Layout }
+    };
 </script>
 
 <style>
