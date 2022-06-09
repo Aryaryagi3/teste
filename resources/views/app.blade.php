@@ -15,7 +15,10 @@
         <!-- Scripts -->
         @routes
         <script src="{{ mix('js/app.js') }}" defer></script>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+        </style>
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
