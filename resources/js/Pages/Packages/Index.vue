@@ -1,15 +1,17 @@
 <template>
     <layout>
         <div>
-            amogus
+            
         </div>
     </layout>
 </template>
 
 <script>
-    import Layout from "../Layout.vue";
+    import Layout from "../../Layout.vue";
+    import { Link } from '@inertiajs/inertia-vue3';
+
     export default {
-        components: { Layout }
+        components: { Layout, Link }
     };
 </script>
 

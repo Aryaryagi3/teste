@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="">
         <Header />
-        <div>
+        <div class="container mx-auto" style="max-width: 1024px;">
             <slot />
         </div>
         <Footer />

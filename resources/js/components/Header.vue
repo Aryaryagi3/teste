@@ -4,16 +4,16 @@
         <div>
             <div v-if="$page.props.auth">
                 <div class="text-slate-200 text-lg">
-                    <Link class="hover:text-orange-700" href="/">Seus Pacotes</Link>
-                    <Link class="ml-1" href="/register">Cadastrar Pacote</Link>
+                    <Link class="ml-2 hover:text-orange-600 " href="packages/create">Cadastrar Pacote</Link>
+                    <Link class="ml-2 hover:text-orange-600" href="packages/index">Seus Pacotes</Link>
                 </div>
                 <div  class="text-slate-200 text-lg">
                     <Link href="/logout" method="post">Sair</Link>
                 </div>
             </div>
             <div  class="text-slate-200 text-lg" v-else>
-                <Link href="/login">Entrar</Link>
-                <Link class="ml-1 hover:text-orange-400	" href="/register">Criar Conta</Link>
+                <Link class="ml-2 hover:text-orange-400" href="/login">Entrar</Link>
+                <Link class="ml-2 hover:text-orange-400" href="/register">Criar Conta</Link>
             </div>
         </div>
     </div>
