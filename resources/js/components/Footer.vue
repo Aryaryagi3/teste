@@ -1,5 +1,5 @@
 <template>
-    <footer class="text-center fixed inset-x-0 bottom-0 bg-cyan-900 p-2">
+    <footer class="text-center bg-cyan-900 p-2">
         <div class="text-slate-200 text-lg">
             © 2022 Copyright:
             <Link class="text-slate-200" href="/">Let's Delivery</Link>

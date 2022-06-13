@@ -24,18 +24,19 @@ const submit = () => {
 </script>
 
 <template>
+<layout>
     <Head title="Register" />
 
     <JetAuthenticationCard>
-        <template #logo>
-            <JetAuthenticationCardLogo />
-        </template>
+        <h1 class="text-2xl">Criar Conta</h1>
+
+        <br>
 
         <JetValidationErrors class="mb-4" />
 
         <form @submit.prevent="submit">
             <div>
-                <JetLabel for="name" value="Name" />
+                <JetLabel for="name" value="Nome" />
                 <JetInput
                     id="name"
                     v-model="form.name"
@@ -59,7 +60,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password" value="Password" />
+                <JetLabel for="password" value="Senha" />
                 <JetInput
                     id="password"
                     v-model="form.password"
@@ -71,7 +72,7 @@ const submit = () => {
             </div>
 
             <div class="mt-4">
-                <JetLabel for="password_confirmation" value="Confirm Password" />
+                <JetLabel for="password_confirmation" value="Confirme sua senha" />
                 <JetInput
                     id="password_confirmation"
                     v-model="form.password_confirmation"
@@ -96,13 +97,21 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')" class="underline text-sm text-gray-600 hover:text-gray-900">
-                    Already registered?
+                    Já possui uma conta?
                 </Link>
 
                 <JetButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
+                    Criar
                 </JetButton>
             </div>
         </form>
     </JetAuthenticationCard>
+</layout>
 </template>
+<script>
+    import Layout from "../../Layout.vue";
+
+    export default {
+        components: { Layout }
+    };
+</script>

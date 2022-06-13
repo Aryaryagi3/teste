@@ -1,7 +1,7 @@
 <template>
     <layout>
-        <div>
-            <div class="flex my-5 p-5 rounded-2xl bg-white">
+        <div class="container">
+            <div class="flex my-5 p-5 rounded-2xl bg-white object-scale-down	">
                 <div>
                     <h1 class="text-4xl my-10">Cadastre e gerencie seus pacotes para delivery de forma fácil e rápida!</h1>
                     <br>
@@ -12,7 +12,10 @@
                     <Link href="/login"><button class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded">Entrar</button></Link>
                 </div>
                 </div>
-                <img src="/img/hero.jpg" class="object-center" alt="Hero" width="600" height="400">
+                <div>
+                    <img src="/img/hero.jpg" class="object-center" alt="Hero" width="1500">
+                </div>
+                
             </div>
         </div>
     </layout>

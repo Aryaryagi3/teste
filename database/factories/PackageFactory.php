@@ -19,7 +19,8 @@ class PackageFactory extends Factory
         return [
             'name' => $this->faker->sentence,
             'description' => $this->faker->text($maxNbChars = 500),
-            ''
+            'cep' => $this->faker->unique(true)->numberBetween(10000000, 99999999),
+            'street' => $this->faker->
 
         ];
     }

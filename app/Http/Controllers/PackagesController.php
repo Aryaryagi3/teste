@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Package;
+use Inertia\Inertia;
 
 class PackagesController extends Controller
 {
     public function index()
     {
-        
+        $currentUser = auth()->user();
+        $packages = $currentUser->packages()->paginate(10);
+        $userName = $currentUser->name;
+
+        return Inertia::render('Packages/Index', [
+            'packages' => $packages,
+            'userName' => $userName
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return Inertia::render('Packages/Create');
     }
 
     /**

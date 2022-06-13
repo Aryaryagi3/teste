@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PackagesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
-        'auth' => Auth::check(),
-    ]);
+    return Inertia::render('Home');
 });
 
 Route::resource('packages', PackagesController::class)->middleware('auth');

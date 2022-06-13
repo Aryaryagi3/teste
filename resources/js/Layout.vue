@@ -1,7 +1,7 @@
 <template>
-    <div class="">
+    <div>
         <Header />
-        <div class="container mx-auto" style="max-width: 1024px;">
+        <div style="display: flex; min-height: 86.1vh; flex-direction: column; max-width: 1024px;" class="container mx-auto">
             <slot />
         </div>
         <Footer />
