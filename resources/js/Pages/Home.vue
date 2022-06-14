@@ -1,7 +1,7 @@
 <template>
     <layout>
         <div class="container">
-            <div class="flex my-5 p-5 rounded-2xl bg-white object-scale-down	">
+            <div class="flex my-5 p-5 rounded-2xl bg-white object-scale-down">
                 <div>
                     <h1 class="text-4xl my-10">Cadastre e gerencie seus pacotes para delivery de forma fácil e rápida!</h1>
                     <br>
