@@ -14,6 +14,12 @@ class Package extends Model
         'name',
         'description',
         'status',
+        'cep',
+        'street',
+        'number',
+        'neighbourhood',
+        'state',
+        'city'
     ];
 
     public function user() {

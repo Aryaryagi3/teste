@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Package;
+use App\Models\Adress;
 use Inertia\Inertia;
+use App\Http\Requests\PackageRequest;
 
 class PackagesController extends Controller
 {
@@ -25,15 +27,14 @@ class PackagesController extends Controller
         return Inertia::render('Packages/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(PackageRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
+        $data['status'] = 'Aguardando recebimento na transportadora';
+        $package = Package::create($data);
+
+        return redirect('/packages');
     }
 
     /**

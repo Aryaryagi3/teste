@@ -38,9 +38,14 @@
         }
         let url = 'https://viacep.com.br/ws/' + cep + '/json/';
 
+
         fetch(url).then(function(response){
             response.json().then(function(data) {
-                console.log(data);
+                if (data.uf === undefined) {
+                    alert('O CEP inserido não existe, por favor insira um CEP válido.')    
+                    return;
+                }
+                
                 showInfo(data);
             })
         });

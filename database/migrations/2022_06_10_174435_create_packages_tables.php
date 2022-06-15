@@ -19,6 +19,13 @@ return new class extends Migration
             $table->string('name', 200);
             $table->string('description', 500);
             $table->string('status', 50);
+            $table->integer('cep');
+            $table->string('street', 200);
+            $table->integer('number');
+            $table->string('complement', 200);
+            $table->string('neighbourhood', 200);
+            $table->string('state', 200);
+            $table->string('city', 200);
             $table->timestamps();
         });
     }
