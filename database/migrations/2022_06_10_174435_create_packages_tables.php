@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('name', 200);
             $table->string('description', 500);
             $table->string('status', 50);
-            $table->integer('cep');
+            $table->string('cep', 8);
             $table->string('street', 200);
-            $table->integer('number');
+            $table->string('number', 10);
             $table->string('complement', 200);
-            $table->string('neighbourhood', 200);
+            $table->string('neighborhood', 200);
             $table->string('state', 200);
             $table->string('city', 200);
             $table->timestamps();

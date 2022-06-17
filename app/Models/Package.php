@@ -17,7 +17,8 @@ class Package extends Model
         'cep',
         'street',
         'number',
-        'neighbourhood',
+        'complement',
+        'neighborhood',
         'state',
         'city'
     ];

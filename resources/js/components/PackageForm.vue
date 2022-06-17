@@ -24,7 +24,7 @@
                     <p><small class="text-stone-500">O CEP só será válido sem o uso de '-' e contendo 8 caracteres.</small></p>
                 </div>
                 <div class="w-1/3">
-                    <button type="button" onclick="checkCep()" class="bg-orange-600 hover:bg-orange-500 text-white text-lg py-1 px-3 rounded mt-6">Verificar CEP</button>
+                    <button type="button" @click="checkCep" class="bg-orange-600 hover:bg-orange-500 text-white text-lg py-1 px-3 rounded mt-6">Verificar CEP</button>
                 </div>
             </div>
             <br>
@@ -46,7 +46,7 @@
                     </div>
                     <div class="w-1/2">
                         <label>Bairro</label><br>
-                        <input type="text" id="neighbourhood" name="neighbourhood" v-model="neighbourhood" placeholder="Bairro" class="w-11/12 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+                        <input type="text" id="neighborhood" name="neighborhood" v-model="form.neighborhood" placeholder="Bairro" class="w-11/12 appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
                     </div>
                 </div>
                 <div class="flex">
@@ -62,14 +62,17 @@
             </div>
         </div>
     </div>   
-    <button class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Cadastrar</button>
+    <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Cadastrar</button>
         </form>
     </div>
 </template>
 
 
 <script setup>
+    import { reactive } from "vue";
+
     import { Inertia } from "@inertiajs/inertia";
+
     let form = reactive({
         name: '',
         description: '',
@@ -77,19 +80,47 @@
         street: '',
         number: '',
         complement: '',
-        neighbourhood: '',
+        neighborhood: '',
         city: '',
-        state: ''
+        state: '',
     });
 
     let submit = () => {
         Inertia.post('/packages', form);
+    };
+
+    let checkCep = () => {
+        let cep = document.querySelector('#cep').value;
+
+        if (cep.length !== 8) {
+            alert('O CEP inserido é inválido, leia atentamente o texto abaixo do campo CEP.')
+            return;
+        }
+        let url = 'https://viacep.com.br/ws/' + cep + '/json/';
+
+
+        fetch(url).then(function(response){
+            response.json().then(function(data) {
+                if (data.uf === undefined) {
+                    alert('O CEP inserido não existe, por favor insira um CEP válido.')    
+                    return;
+                }
+                
+                showInfo(data);
+            })
+        });
+    };
+
+    let showInfo = (data) => {
+        form.street = data.logradouro;
+        form.complement = data.complemento;
+        form.neighborhood = data.bairro;
+        form.city = data.localidade;
+        form.state = data.uf;
     }
 </script>
 
 <script>
-    import { reactive } from "vue";
-
     export default {
         name: "PackageForm",
     }

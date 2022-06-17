@@ -29,34 +29,6 @@
         @endenv
     </body>
     <script>
-    function checkCep() {
-        let cep = document.querySelector('#cep').value;
 
-        if (cep.length !== 8) {
-            alert('O CEP inserido é inválido, leia atentamente o texto abaixo do campo CEP.')
-            return;
-        }
-        let url = 'https://viacep.com.br/ws/' + cep + '/json/';
-
-
-        fetch(url).then(function(response){
-            response.json().then(function(data) {
-                if (data.uf === undefined) {
-                    alert('O CEP inserido não existe, por favor insira um CEP válido.')    
-                    return;
-                }
-                
-                showInfo(data);
-            })
-        });
-    }
-
-    function showInfo(data) {
-        document.getElementById("street").value = data.logradouro;
-        document.getElementById("complement").value = data.complemento;
-        document.getElementById("neighbourhood").value = data.bairro;
-        document.getElementById("city").value = data.localidade;
-        document.getElementById("state").value = data.uf;
-    }
 </script>
 </html>

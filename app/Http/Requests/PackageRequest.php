@@ -13,7 +13,7 @@ class PackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,15 +24,13 @@ class PackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|integer|numeric|exists:users,id',
             'name' => 'required|string|max:200',
             'description' => 'required|string|max:500',
-            'status' => 'required|string|max:50',
-            'cep' => 'required|integer|numeric',
+            'cep' => 'required|string|max:8',
             'street' => 'required|string|max:200',
-            'number' => 'required|integer|numeric',
+            'number' => 'required|string|max:10',
             'complement' => 'required|string|max:200',
-            'neighbourhood' => 'required|string|max:200',
+            'neighborhood' => 'required|string|max:200',
             'state' => 'required|string|max:200',
             'city' => 'required|string|max:200',
         ];

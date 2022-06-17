@@ -1,7 +1,11 @@
 <template>
     <layout>
         <div>
-            
+            <div>
+                <h1>Pacotes cadastrados por {{ userName }}</h1>
+            </div>
+            <div>
+            </div>
         </div>
     </layout>
 </template>
@@ -11,7 +15,11 @@
     import { Link } from '@inertiajs/inertia-vue3';
 
     export default {
-        components: { Layout, Link }
+        components: { Layout, Link },
+        props: {
+            packages: Array,
+            userName: String
+        }
     };
 </script>
 
