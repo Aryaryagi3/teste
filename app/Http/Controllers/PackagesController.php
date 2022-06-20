@@ -13,11 +13,13 @@ class PackagesController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $packages = $currentUser->packages()->paginate(10);
         $userName = $currentUser->name;
 
         return Inertia::render('Packages/Index', [
-            'packages' => $packages,
+            'packs' => Package::where('user_id', $currentUser->id)->paginate(10)->map(fn($package) =>
+            ['id' => $package->id,
+            'name' => $package->name,
+            'description' => $package->description]),
             'userName' => $userName
         ]);
     }
