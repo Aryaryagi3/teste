@@ -16,10 +16,11 @@ class PackagesController extends Controller
         $userName = $currentUser->name;
 
         return Inertia::render('Packages/Index', [
-            'packs' => Package::where('user_id', $currentUser->id)->paginate(10)->map(fn($package) =>
+            'packs' => Package::where('user_id', $currentUser->id)->paginate(10)->through(fn($package) =>
             ['id' => $package->id,
             'name' => $package->name,
-            'description' => $package->description]),
+            'description' => $package->description,
+            'status' => $package->status]),
             'userName' => $userName
         ]);
     }
@@ -39,15 +40,12 @@ class PackagesController extends Controller
         return redirect('/packages');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $package = Package::where('id', $id)->first();
+        $userName = auth()->user()->name;
+
+        return Inertia::render('Packages/Show', ['pack' => $package,'userName' => $userName]);
     }
 
     /**
