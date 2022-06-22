@@ -40,23 +40,16 @@ class PackagesController extends Controller
         return redirect('/packages');
     }
 
-    public function show($id)
+    public function show(Package $package)
     {
-        $package = Package::where('id', $id)->first();
         $userName = auth()->user()->name;
 
         return Inertia::render('Packages/Show', ['pack' => $package,'userName' => $userName]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Package $package)
     {
-        //
+        return Inertia::render('Packages/Edit', ['pack' => $package]);
     }
 
     /**

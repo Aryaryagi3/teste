@@ -9,8 +9,8 @@
                     <div class="bg-amber-200 p-3 m-3 flex">
                         <div class="w-11/12">
                             <div><h1 class="text-2xl mb-2">{{ pack.name }}</h1></div>
-                            <div>{{ pack.description }}</div>
-                            <div>Situação: {{ pack.status }}</div>
+                            <div class="mb-2">{{ pack.description }}</div>
+                            <div>{{ pack.status }}</div>
                         </div>
                         <div class="w-1/12">
                             <Link class="bg-orange-600 hover:bg-orange-500 text-white pl-2 h-8 pr-2 pt-1 pb-1 text-md rounded" :href="'/packages/' + pack.id">Detalhes</Link>
