@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <form @submit.prevent="submit" class="w-full bg-white px-8 pt-6 pb-8 mb-4">
+    <div class="w-full bg-white px-8 pt-6 pb-8 mb-4">
+        <form @submit.prevent="submit" >
         <div class="flex">
         <div class="w-5/12">
             <h1 class="block uppercase tracking-wide text-cyan-900 text-xl font-bold">Detalhes do Pacote</h1>
@@ -12,6 +12,14 @@
             <div class="mb-4">
                 <label>Descrição</label><br>
                 <textarea  type="text" id="description" name="description" v-model="form.description" placeholder="Informações sobre o pacote" rows="7" class="w-11/12 resize-none appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            </div>
+            <div >
+                <select v-if="pack" v-model="form.status" name="status">
+                    <option value="Aguardando recebimento na transportadora">Aguardando recebimento na transportadora</option>
+                    <option value="Encaminhado">Encaminhado</option>
+                    <option value="Saiu para entrega">Saiu para entrega</option>
+                    <option value="Entregue">Entregue</option>
+                </select>
             </div>
         </div>
         <div class="w-7/12">
@@ -62,8 +70,9 @@
             </div>
         </div>
     </div>   
-    <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Cadastrar</button>
+    <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Enviar</button>
         </form>
+        <button v-if="pack" v-on:click="remove" class="bg-red-700 hover:bg-red-600 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Deletar Pacote</button>
     </div>
 </template>
 
@@ -73,20 +82,49 @@
 
     import { Inertia } from "@inertiajs/inertia";
 
-    let form = reactive({
-        name: '',
-        description: '',
-        cep: '',
-        street: '',
-        number: '',
-        complement: '',
-        neighborhood: '',
-        city: '',
-        state: '',
-    });
+    const props = defineProps({
+        pack: Object
+    })
+    let form;
+
+    if (typeof props.pack === 'undefined') {
+        form = reactive({
+            name: '',
+            description: '',
+            cep: '',
+            street: '',
+            number: '',
+            status: '',
+            complement: '',
+            neighborhood: '',
+            city: '',
+            state: '',
+        });
+    } else {
+        form = reactive({
+            name: props.pack.name,
+            description: props.pack.description,
+            cep: props.pack.cep,
+            street: props.pack.street,
+            number: props.pack.number,
+            status: props.pack.status,
+            complement: props.pack.complement,
+            neighborhood: props.pack.neighborhood,
+            city: props.pack.city,
+            state: props.pack.state,
+        });
+    }
 
     let submit = () => {
-        Inertia.post('/packages', form);
+        if (typeof props.pack === 'undefined') {
+            Inertia.post('/packages', form);
+        } else {
+            Inertia.patch('/packages/' + props.pack.id, form);
+        }
+    };
+
+    let remove = () => {
+        Inertia.delete('/packages/' + props.pack.id);
     };
 
     let checkCep = () => {
@@ -122,6 +160,9 @@
 
 <script>
     export default {
+        props: {
+            'pack': Object
+        },
         name: "PackageForm",
     }
 </script>

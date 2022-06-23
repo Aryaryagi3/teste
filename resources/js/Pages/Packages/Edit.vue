@@ -2,10 +2,10 @@
     <layout>
             <div class="flex my-5 p-5 rounded-2xl bg-white">
                 <div class="w-full">
-                    <h1 class="text-4xl">Cadastrar Pacote</h1>
+                    <h1 class="text-4xl">Editar Pacote</h1>
                     <br>
                     <div class="w-full">
-                        <PackageForm />
+                        <PackageForm :pack = "pack"/>
                     </div>
                 </div>
             </div>
@@ -17,6 +17,9 @@
     import PackageForm from '../../components/PackageForm.vue';
 
     export default {
+        props: {
+            'pack': Object
+        },
         components: {
             Layout,
             PackageForm

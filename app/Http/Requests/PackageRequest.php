@@ -33,6 +33,7 @@ class PackageRequest extends FormRequest
             'neighborhood' => 'required|string|max:200',
             'state' => 'required|string|max:200',
             'city' => 'required|string|max:200',
+            'status' => 'nullable',
         ];
     }
 }

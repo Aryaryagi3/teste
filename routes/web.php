@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,8 @@ Route::get('/', function () {
 });
 
 Route::resource('packages', PackagesController::class)->middleware('auth');
+
+Route::resource('media', MediaController::class)->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',

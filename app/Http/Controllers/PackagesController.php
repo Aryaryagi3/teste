@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Package;
-use App\Models\Adress;
+use App\Models\Media;
 use Inertia\Inertia;
 use App\Http\Requests\PackageRequest;
 
@@ -43,8 +43,11 @@ class PackagesController extends Controller
     public function show(Package $package)
     {
         $userName = auth()->user()->name;
+        $currentUser = auth()->user();
 
-        return Inertia::render('Packages/Show', ['pack' => $package,'userName' => $userName]);
+        $medias = Media::where('package_id', $package->id)->paginate(10);
+
+        return Inertia::render('Packages/Show', ['pack' => $package,'userName' => $userName, 'medias' => $medias]);
     }
 
     public function edit(Package $package)
@@ -52,24 +55,14 @@ class PackagesController extends Controller
         return Inertia::render('Packages/Edit', ['pack' => $package]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(PackageRequest $request, Package $package)
     {
-        //
+        $data = $request->validated();
+        $package->update($data);
+
+        return redirect('/packages');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

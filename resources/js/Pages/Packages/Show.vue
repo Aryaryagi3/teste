@@ -28,17 +28,55 @@
                     <h1>Complemento: {{pack.complement}}</h1>
                 </div>
             </div>
-            <div class="flex ml-2 p-5 justify-between	">
-                <div>
-                    <h1 class="text-2xl">Arquivos</h1>
+            <div class="ml-2 p-5">
+                <div class="flex justify-between">
+                    <div>
+                        <h1 class="text-2xl mb-3">Arquivos</h1>
+                    </div>
                 </div>
                 <div>
-                    <Link :href="'/packages/' + pack.id + '/edit'" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded mr-3">Gerenciar Arquivos</Link>
+                    <div class="mb-3">
+                        <form method="POST" @submit.prevent="submit" enctype="multipart/form-data">
+                            <label for="media">Adicionar Arquivo: </label>
+                            <input type="file" name="media" @input="form.media = $event.target.files[0]">
+                            <input name="package_id" type="hidden" v-model="form.package_id" :value="pack.id">
+                            <br>
+                            <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Adicionar Arquivo</button>
+                        </form>
+                    </div>
+                    <div>
+                        <div v-for="media in medias" :key="media.id">
+                            <img :src="media.media" alt="arquivo">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </layout>
 </template>
+
+<script setup>
+    import { Inertia } from "@inertiajs/inertia";
+    import { useForm } from "@inertiajs/inertia-vue3"
+
+    const props = defineProps({
+        pack: Object
+    })
+
+    const form = useForm({
+        media: null,
+        package_id: props.pack.id,
+    })
+
+    let remove = () => {
+        Inertia.delete('/packages/' + props.pack.id);
+    };
+
+    let submit = () => {
+        Inertia.post('/media', form);
+    };
+
+</script>
 
 <script>
     import Layout from "../../Layout.vue";
@@ -47,8 +85,9 @@
     export default {
         components: { Layout, Link },
         props: {
-            pack: Object,
-            userName: String
+            'pack': Object,
+            'medias': Array,
+            'userName': String
         }
     };
 </script>
