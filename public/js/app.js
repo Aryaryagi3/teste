@@ -27850,6 +27850,7 @@ var __default__ = {
 
     var validate = function validate() {
       var elements = document.getElementById("form").elements;
+      console.log(elements);
       var keyWords = ['nome do pacote', 'descrição', 'CEP', '', 'logradouro', 'número', 'complemento', 'bairro', 'cidade', 'estado'];
 
       for (var i = 0; i < 10; i++) {
@@ -27859,7 +27860,11 @@ var __default__ = {
         }
 
         if (i == 2) {
-          i++;
+          if (typeof props.pack === 'undefined') {
+            i++;
+          } else {
+            i = i + 2;
+          }
         }
       }
 
@@ -31370,7 +31375,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* TEXT */
       )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.pack.status == 'Saiu para entrega' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.pack.status), 1
       /* TEXT */
-      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.pack.status == 'Entrega' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.pack.status), 1
+      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.pack.status == 'Entregue' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.pack.status), 1
       /* TEXT */
       )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
         href: '/packages/' + $props.pack.id + '/edit'

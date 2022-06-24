@@ -33,7 +33,9 @@ class MediaController extends Controller
 
         $media = Media::create($data);
 
-        return redirect('/packages');
+        return redirect()->action(
+            [PackagesController::class, 'show'], ['package' => $package]
+        );
     }
 
     public function show($id)

@@ -9,7 +9,7 @@
                     <p class="text-gray-600 text-lg" v-if="pack.status == 'Aguardando recebimento na transportadora'">{{pack.status}}</p>
                     <p class="text-yellow-600 text-lg" v-if="pack.status == 'Encaminhado'">{{pack.status}}</p>
                     <p class="text-amber-600 text-lg" v-if="pack.status == 'Saiu para entrega'">{{pack.status}}</p>
-                    <p class="text-green-600 text-lg" v-if="pack.status == 'Entrega'">{{pack.status}}</p>
+                    <p class="text-green-600 text-lg" v-if="pack.status == 'Entregue'">{{pack.status}}</p>
                 </div>
                 <div>
                     <Link :href="'/packages/' + pack.id + '/edit'"><button class="bg-orange-600 hover:bg-orange-500 text-white text-lg py-2 px-4 rounded mr-3">Editar</button></Link>

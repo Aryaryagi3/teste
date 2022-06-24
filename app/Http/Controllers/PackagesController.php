@@ -69,7 +69,9 @@ class PackagesController extends Controller
         $data = $request->validated();
         $package->update($data);
 
-        return redirect('/packages');
+        return redirect()->action(
+            [PackagesController::class, 'show'], ['package' => $package]
+        );
     }
 
     public function destroy(Package $package)

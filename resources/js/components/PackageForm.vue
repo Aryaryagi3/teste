@@ -159,6 +159,7 @@
 
     let validate = () => {
         let elements = document.getElementById("form").elements;
+                console.log(elements);
         let keyWords = ['nome do pacote', 'descrição', 'CEP', '', 'logradouro', 'número', 'complemento', 'bairro', 'cidade', 'estado']
         for (let i = 0; i < 10; i++) {
             if (elements[i].value == "") {
@@ -166,7 +167,11 @@
             return false;
             }
             if (i == 2) {
-                i++;
+                if (typeof props.pack === 'undefined') {
+                    i++;
+                } else {
+                    i = i + 2;
+                }
             }
         }
         submit();
