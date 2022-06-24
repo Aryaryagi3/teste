@@ -26919,7 +26919,7 @@ var __default__ = {
   },
   props: {
     'pack': Object,
-    'medias': Array,
+    'medias': Object,
     'userName': String
   }
 };
@@ -26928,7 +26928,8 @@ var __default__ = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (/*#__PURE__*/Object.assign(__default__, {
   __name: 'Show',
   props: {
-    pack: Object
+    pack: Object,
+    medias: Object
   },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
@@ -26939,10 +26940,6 @@ var __default__ = {
       package_id: props.pack.id
     });
 
-    var remove = function remove() {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia["delete"]('/packages/' + props.pack.id);
-    };
-
     var submit = function submit() {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/media', form);
     };
@@ -26950,7 +26947,6 @@ var __default__ = {
     var __returned__ = {
       props: props,
       form: form,
-      remove: remove,
       submit: submit,
       Layout: _Layout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
@@ -27852,6 +27848,30 @@ var __default__ = {
       form.state = data.uf;
     };
 
+    var validate = function validate() {
+      var elements = document.getElementById("form").elements;
+      var keyWords = ['nome do pacote', 'descrição', 'CEP', '', 'logradouro', 'número', 'complemento', 'bairro', 'cidade', 'estado'];
+
+      for (var i = 0; i < 10; i++) {
+        if (elements[i].value == "") {
+          alert("Por favor, preencha o campo " + keyWords[i]);
+          return false;
+        }
+
+        if (i == 2) {
+          i++;
+        }
+      }
+
+      submit();
+
+      if (typeof props.pack === 'undefined') {
+        alert("Livro cadastrado com sucesso.");
+      } else {
+        alert("Livro editado com sucesso.");
+      }
+    };
+
     var __returned__ = {
       props: props,
       form: form,
@@ -27859,6 +27879,7 @@ var __default__ = {
       remove: remove,
       checkCep: checkCep,
       showInfo: showInfo,
+      validate: validate,
       reactive: vue__WEBPACK_IMPORTED_MODULE_0__.reactive,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia
     };
@@ -31323,19 +31344,20 @@ var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_19 = ["value"];
-
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "submit",
   "class": "bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3"
 }, "Adicionar Arquivo", -1
 /* HOISTED */
 );
 
+var _hoisted_21 = {
+  "class": "grid grid-cols-2 gap-3"
+};
 var _hoisted_22 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["Layout"], null, {
@@ -31386,17 +31408,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         type: "hidden",
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $setup.form.package_id = $event;
-        }),
-        value: $props.pack.id
-      }, null, 8
-      /* PROPS */
-      , _hoisted_19), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.package_id]]), _hoisted_20, _hoisted_21], 32
+        })
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.package_id]]), _hoisted_19, _hoisted_20], 32
       /* HYDRATE_EVENTS */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.medias, function (media) {
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.medias.data, function (media) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+          "class": "w-1/2 p-2",
           key: media.id
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-          src: media.media,
+          "class": "",
+          src: '/img/media/' + media.media,
           alt: "arquivo"
         }, null, 8
         /* PROPS */
@@ -33047,8 +33070,9 @@ var _hoisted_47 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $setup.submit && $setup.submit.apply($setup, arguments);
-    }, ["prevent"]))
+      return $setup.validate && $setup.validate.apply($setup, arguments);
+    }, ["prevent"])),
+    id: "form"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     id: "name",

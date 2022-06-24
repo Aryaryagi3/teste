@@ -39,14 +39,14 @@
                         <form method="POST" @submit.prevent="submit" enctype="multipart/form-data">
                             <label for="media">Adicionar Arquivo: </label>
                             <input type="file" name="media" @input="form.media = $event.target.files[0]">
-                            <input name="package_id" type="hidden" v-model="form.package_id" :value="pack.id">
+                            <input name="package_id" type="hidden" v-model="form.package_id">
                             <br>
                             <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Adicionar Arquivo</button>
                         </form>
                     </div>
-                    <div>
-                        <div v-for="media in medias" :key="media.id">
-                            <img :src="media.media" alt="arquivo">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="w-1/2 p-2" v-for="media in medias.data" :key="media.id">
+                            <img class="" :src="'/img/media/' + media.media" alt="arquivo">
                         </div>
                     </div>
                 </div>
@@ -60,17 +60,14 @@
     import { useForm } from "@inertiajs/inertia-vue3"
 
     const props = defineProps({
-        pack: Object
+        pack: Object,
+        medias: Object
     })
 
     const form = useForm({
         media: null,
         package_id: props.pack.id,
     })
-
-    let remove = () => {
-        Inertia.delete('/packages/' + props.pack.id);
-    };
 
     let submit = () => {
         Inertia.post('/media', form);
@@ -86,7 +83,7 @@
         components: { Layout, Link },
         props: {
             'pack': Object,
-            'medias': Array,
+            'medias': Object,
             'userName': String
         }
     };

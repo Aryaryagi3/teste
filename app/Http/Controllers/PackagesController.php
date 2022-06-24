@@ -16,7 +16,7 @@ class PackagesController extends Controller
         $userName = $currentUser->name;
 
         return Inertia::render('Packages/Index', [
-            'packs' => Package::where('user_id', $currentUser->id)->paginate(10)->through(fn($package) =>
+            'packs' => Package::where('user_id', $currentUser->id)->paginate(5)->through(fn($package) =>
             ['id' => $package->id,
             'name' => $package->name,
             'description' => $package->description,
@@ -42,29 +42,41 @@ class PackagesController extends Controller
 
     public function show(Package $package)
     {
+        $this->authorize('show', $package);
+
         $userName = auth()->user()->name;
         $currentUser = auth()->user();
 
-        $medias = Media::where('package_id', $package->id)->paginate(10);
-
-        return Inertia::render('Packages/Show', ['pack' => $package,'userName' => $userName, 'medias' => $medias]);
+        return Inertia::render('Packages/Show', [
+            'medias' => Media::where('package_id', $package->id)->paginate(5)->through(fn($media) =>
+            ['id' => $media->id,
+            'media' => $media->media]),
+            'pack' => $package,
+            'userName' => $userName
+        ]);
     }
 
     public function edit(Package $package)
     {
+        $this->authorize('edit', $package);
         return Inertia::render('Packages/Edit', ['pack' => $package]);
     }
 
     public function update(PackageRequest $request, Package $package)
     {
+        $this->authorize('update', $package);
+
         $data = $request->validated();
         $package->update($data);
 
         return redirect('/packages');
     }
 
-    public function destroy($id)
+    public function destroy(Package $package)
     {
-        //
+        $this->authorize('delete', $package);
+
+        $package->delete();
+        return redirect('/packages');
     }
 }

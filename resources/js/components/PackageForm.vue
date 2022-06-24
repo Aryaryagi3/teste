@@ -1,6 +1,6 @@
 <template>
     <div class="w-full bg-white px-8 pt-6 pb-8 mb-4">
-        <form @submit.prevent="submit" >
+        <form @submit.prevent="validate" id="form">
         <div class="flex">
         <div class="w-5/12">
             <h1 class="block uppercase tracking-wide text-cyan-900 text-xl font-bold">Detalhes do Pacote</h1>
@@ -156,6 +156,26 @@
         form.city = data.localidade;
         form.state = data.uf;
     }
+
+    let validate = () => {
+        let elements = document.getElementById("form").elements;
+        let keyWords = ['nome do pacote', 'descrição', 'CEP', '', 'logradouro', 'número', 'complemento', 'bairro', 'cidade', 'estado']
+        for (let i = 0; i < 10; i++) {
+            if (elements[i].value == "") {
+            alert("Por favor, preencha o campo " + keyWords[i]);
+            return false;
+            }
+            if (i == 2) {
+                i++;
+            }
+        }
+        submit();
+        if (typeof props.pack === 'undefined') {
+            alert("Livro cadastrado com sucesso.");
+        } else {
+            alert("Livro editado com sucesso.");
+        }
+    };
 </script>
 
 <script>
