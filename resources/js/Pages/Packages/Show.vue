@@ -73,6 +73,21 @@
         Inertia.post('/media', form);
     };
 
+    let confirmation = (id) => {
+        let res = confirm("Deseja mesmo deletar este pacote?");
+
+        if (res) {
+            remove(id);
+            alert("Pacote deletado com sucesso");
+        } else {
+            return false;
+        }
+    }
+
+    let remove = (id) => {
+        Inertia.delete('/media/' + id);
+    };
+
 </script>
 
 <script>

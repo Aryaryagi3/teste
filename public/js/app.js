@@ -26944,10 +26944,27 @@ var __default__ = {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/media', form);
     };
 
+    var confirmation = function confirmation(id) {
+      var res = confirm("Deseja mesmo deletar este pacote?");
+
+      if (res) {
+        remove(id);
+        alert("Pacote deletado com sucesso");
+      } else {
+        return false;
+      }
+    };
+
+    var remove = function remove(id) {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia["delete"]('/media/' + id);
+    };
+
     var __returned__ = {
       props: props,
       form: form,
       submit: submit,
+      confirmation: confirmation,
+      remove: remove,
       Layout: _Layout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link,
       Inertia: _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia,
@@ -27815,6 +27832,17 @@ var __default__ = {
       }
     };
 
+    var confirmation = function confirmation() {
+      var res = confirm("Deseja mesmo deletar este pacote?");
+
+      if (res) {
+        remove();
+        alert("Pacote deletado com sucesso");
+      } else {
+        return false;
+      }
+    };
+
     var remove = function remove() {
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia["delete"]('/packages/' + props.pack.id);
     };
@@ -27871,9 +27899,9 @@ var __default__ = {
       submit();
 
       if (typeof props.pack === 'undefined') {
-        alert("Livro cadastrado com sucesso.");
+        alert("Pacote cadastrado com sucesso.");
       } else {
-        alert("Livro editado com sucesso.");
+        alert("Pacote editado com sucesso.");
       }
     };
 
@@ -27881,6 +27909,7 @@ var __default__ = {
       props: props,
       form: form,
       submit: submit,
+      confirmation: confirmation,
       remove: remove,
       checkCep: checkCep,
       showInfo: showInfo,
@@ -33198,7 +33227,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ), $props.pack ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 0,
     onClick: _cache[12] || (_cache[12] = function () {
-      return $setup.remove && $setup.remove.apply($setup, arguments);
+      return $setup.confirmation && $setup.confirmation.apply($setup, arguments);
     }),
     "class": "bg-red-700 hover:bg-red-600 text-white text-lg py-2 px-4 rounded ml-3 mt-3"
   }, "Deletar Pacote")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);

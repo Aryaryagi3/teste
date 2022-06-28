@@ -7,6 +7,7 @@ use App\Models\Package;
 use App\Models\Media;
 use Inertia\Inertia;
 use App\Http\Requests\PackageRequest;
+use App\Actions\StorePackageAction;
 
 class PackagesController extends Controller
 {
@@ -32,10 +33,8 @@ class PackagesController extends Controller
 
     public function store(PackageRequest $request)
     {
-        $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
-        $data['status'] = 'Aguardando recebimento na transportadora';
-        $package = Package::create($data);
+
+        $package = Package::create((new StorePackageAction())->execute($request));
 
         return redirect('/packages');
     }

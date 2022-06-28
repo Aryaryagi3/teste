@@ -72,7 +72,7 @@
     </div>   
     <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Enviar</button>
         </form>
-        <button v-if="pack" v-on:click="remove" class="bg-red-700 hover:bg-red-600 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Deletar Pacote</button>
+        <button v-if="pack" v-on:click="confirmation" class="bg-red-700 hover:bg-red-600 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Deletar Pacote</button>
     </div>
 </template>
 
@@ -123,6 +123,17 @@
         }
     };
 
+    let confirmation = () => {
+        let res = confirm("Deseja mesmo deletar este pacote?");
+
+        if (res) {
+            remove();
+            alert("Pacote deletado com sucesso");
+        } else {
+            return false;
+        }
+    }
+
     let remove = () => {
         Inertia.delete('/packages/' + props.pack.id);
     };
@@ -163,8 +174,8 @@
         let keyWords = ['nome do pacote', 'descrição', 'CEP', '', 'logradouro', 'número', 'complemento', 'bairro', 'cidade', 'estado']
         for (let i = 0; i < 10; i++) {
             if (elements[i].value == "") {
-            alert("Por favor, preencha o campo " + keyWords[i]);
-            return false;
+                alert("Por favor, preencha o campo " + keyWords[i]);
+                return false;
             }
             if (i == 2) {
                 if (typeof props.pack === 'undefined') {
@@ -176,9 +187,9 @@
         }
         submit();
         if (typeof props.pack === 'undefined') {
-            alert("Livro cadastrado com sucesso.");
+            alert("Pacote cadastrado com sucesso.");
         } else {
-            alert("Livro editado com sucesso.");
+            alert("Pacote editado com sucesso.");
         }
     };
 </script>
