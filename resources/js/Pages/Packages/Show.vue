@@ -46,7 +46,7 @@
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div class="w-1/2 p-2" v-for="media in medias.data" :key="media.id">
-                            <img class="" :src="'/img/media/' + media.media" alt="arquivo">
+                            <img class="" :src="'/storage/media/' + media.media" alt="arquivo">
                         </div>
                     </div>
                 </div>

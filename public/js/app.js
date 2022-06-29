@@ -31453,7 +31453,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           key: media.id
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
           "class": "",
-          src: '/img/media/' + media.media,
+          src: '/storage/media/' + media.media,
           alt: "arquivo"
         }, null, 8
         /* PROPS */

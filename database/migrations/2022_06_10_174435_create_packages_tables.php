@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('name', 200);
             $table->string('description', 500);
             $table->string('status', 50);

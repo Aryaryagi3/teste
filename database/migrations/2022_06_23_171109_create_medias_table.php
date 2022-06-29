@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
             $table->string('media');
-            $table->unsignedInteger('package_id');
+            $table->foreignId('package_id')->constrained();
             $table->timestamps();
         });
     }

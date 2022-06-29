@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Media;
 use Inertia\Inertia;
 use App\Http\Requests\PackageRequest;
 use App\Actions\StorePackageAction;
+use App\Http\Resources\PackageResource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PackagesController extends Controller
 {
@@ -16,12 +19,12 @@ class PackagesController extends Controller
         $currentUser = auth()->user();
         $userName = $currentUser->name;
 
+        $packages = QueryBuilder::for(Package::class)
+            ->where('user_id', $currentUser->id)
+            ->paginate(5);
+
         return Inertia::render('Packages/Index', [
-            'packs' => Package::where('user_id', $currentUser->id)->paginate(5)->through(fn($package) =>
-            ['id' => $package->id,
-            'name' => $package->name,
-            'description' => $package->description,
-            'status' => $package->status]),
+            'packs' => $packages,
             'userName' => $userName
         ]);
     }
