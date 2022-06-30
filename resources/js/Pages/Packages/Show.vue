@@ -6,10 +6,10 @@
                     <h1 class="text-4xl">{{ pack.name }}</h1>
                 </div>
                 <div class="w-1/4">
-                    <p class="text-gray-600 text-lg" v-if="pack.status == 'Aguardando recebimento na transportadora'">{{pack.status}}</p>
-                    <p class="text-yellow-600 text-lg" v-if="pack.status == 'Encaminhado'">{{pack.status}}</p>
-                    <p class="text-amber-600 text-lg" v-if="pack.status == 'Saiu para entrega'">{{pack.status}}</p>
-                    <p class="text-green-600 text-lg" v-if="pack.status == 'Entregue'">{{pack.status}}</p>
+                    <p class="text-gray-600 text-lg" v-if="pack.status === 'Aguardando recebimento na transportadora'">{{pack.status}}</p>
+                    <p class="text-yellow-600 text-lg" v-if="pack.status === 'Encaminhado'">{{pack.status}}</p>
+                    <p class="text-amber-600 text-lg" v-if="pack.status === 'Saiu para entrega'">{{pack.status}}</p>
+                    <p class="text-green-600 text-lg" v-if="pack.status === 'Entregue'">{{pack.status}}</p>
                 </div>
                 <div>
                     <Link :href="'/packages/' + pack.id + '/edit'"><button class="bg-orange-600 hover:bg-orange-500 text-white text-lg py-2 px-4 rounded mr-3">Editar</button></Link>
@@ -38,14 +38,14 @@
                     <div class="mb-3">
                         <form method="POST" @submit.prevent="submit" enctype="multipart/form-data">
                             <label for="media">Adicionar Arquivo: </label>
-                            <input type="file" name="media" @input="form.media = $event.target.files[0]">
+                            <input type="file" id="media" name="media" @input="form.media = $event.target.files[0]">
                             <input name="package_id" type="hidden" v-model="form.package_id">
                             <br>
                             <button type="submit" class="bg-cyan-900 hover:bg-cyan-800 text-white text-lg py-2 px-4 rounded ml-3 mt-3">Adicionar Arquivo</button>
                         </form>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="w-1/2 p-2" v-for="media in medias.data" :key="media.id">
+                        <div class="w-1/2 p-2" v-for="media in medias" :key="media.id">
                             <img class="" :src="'/storage/media/' + media.media" alt="arquivo">
                         </div>
                     </div>

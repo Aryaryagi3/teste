@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\IndexPackageAction;
+use App\Actions\ShowPackageAction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Package;
@@ -17,15 +19,12 @@ class PackagesController extends Controller
     public function index()
     {
         $currentUser = auth()->user();
-        $userName = $currentUser->name;
 
-        $packages = QueryBuilder::for(Package::class)
-            ->where('user_id', $currentUser->id)
-            ->paginate(5);
+        $packages = (new IndexPackageAction())->execute($currentUser);
 
         return Inertia::render('Packages/Index', [
             'packs' => $packages,
-            'userName' => $userName
+            'userName' => $currentUser->name
         ]);
     }
 
@@ -47,12 +46,11 @@ class PackagesController extends Controller
         $this->authorize('show', $package);
 
         $userName = auth()->user()->name;
-        $currentUser = auth()->user();
+
+        $medias = (new ShowPackageAction())->execute($package);
 
         return Inertia::render('Packages/Show', [
-            'medias' => Media::where('package_id', $package->id)->paginate(5)->through(fn($media) =>
-            ['id' => $media->id,
-            'media' => $media->media]),
+            'medias' => $medias,
             'pack' => $package,
             'userName' => $userName
         ]);
