@@ -11,7 +11,7 @@ use App\Actions\StoreMediaAction;
 class MediaController extends Controller
 {
     public function store(MediaRequest $request)
-    {   
+    {
         $media = Media::create((new StoreMediaAction())->execute($request));
 
         return redirect()->action(

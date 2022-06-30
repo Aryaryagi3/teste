@@ -78,6 +78,7 @@ class PackagesController extends Controller
     {
         $this->authorize('delete', $package);
 
+        Media::where('package_id', $package->id)->delete();
         $package->delete();
         return redirect('/packages');
     }

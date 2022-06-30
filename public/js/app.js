@@ -26941,7 +26941,11 @@ var __default__ = {
     });
 
     var submit = function submit() {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/media', form);
+      if (form.media) {
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/media', form);
+      } else {
+        alert("Você precisa selecionar um arquivo antes");
+      }
     };
 
     var confirmation = function confirmation(id) {

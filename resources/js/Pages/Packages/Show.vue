@@ -70,7 +70,11 @@
     })
 
     let submit = () => {
-        Inertia.post('/media', form);
+        if (form.media) {
+            Inertia.post('/media', form);
+        } else {
+            alert("Você precisa selecionar um arquivo antes");
+        }
     };
 
     let confirmation = (id) => {
